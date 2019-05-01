@@ -14,3 +14,6 @@ class Product(Event):
 
     def __str__(self):
         return "Product({})".format(self.name)
+
+    def to_dot(self):
+        pass

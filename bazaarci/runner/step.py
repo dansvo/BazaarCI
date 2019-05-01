@@ -44,3 +44,9 @@ class Step(Node):
 
     def __repr__(self):
         return "Step({})".format(self.name)
+
+    def to_dot(self):
+        this_node = f"\"{self.name}\" [shape=box];"
+        all_consumed = (f"{cons.name} -> {self.name};" for cons in self.consumes())
+        all_produced = (f"{self.name} -> {prod.name}" for prod in self.produces())
+        return this_node + "".join(all_consumed) + "".join(all_produced)
