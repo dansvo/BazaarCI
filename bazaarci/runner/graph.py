@@ -26,6 +26,6 @@ class Graph(Node, set):
     def to_dot(self):
         all_step_statements = "\n".join(step.to_dot() for step in self)
         if self.graph is None:  # this is the top level graph
-            return f"digraph {self.name} {{ compound=true; {all_step_statements} }}"
+            return f"digraph \"{self.name}\" {{ compound=true; {all_step_statements} }}"
         else:  # this is a subgraph
-            return f"subgraph {self.name} { {all_step_statements} }"
+            return f"subgraph \"{self.name}\" {{ {all_step_statements} }}"
