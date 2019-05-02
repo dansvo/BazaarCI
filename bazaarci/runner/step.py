@@ -47,6 +47,6 @@ class Step(Node):
 
     def to_dot(self):
         this_node = f"\"{self.name}\" [shape=box];"
-        all_consumed = (f"\"{cons.to_dot()}\" -> \"{self.name}\";" for cons in self.consumes())
-        all_produced = (f"\"{self.name}\" -> \"{prod.to_dot()}\";" for prod in self.produces())
-        return this_node + "\n" + "\n".join(all_consumed) + "\n" + "\n".join(all_produced)
+        all_consumed = (f"\"{cons.name}\" -> \"{self.name}\";" for cons in self.consumes())
+        all_produced = (f"\"{self.name}\" -> \"{prod.name}\";" for prod in self.produces())
+        return this_node + "\n" + "\n".join(all_consumed) + "\n" + "\n".join(all_produced) + "\n" + "\n".join((p.to_dot() for p in self.produces()))+ "\n" + "\n".join((c.to_dot() for c in self.consumes()))
