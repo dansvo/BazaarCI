@@ -16,4 +16,5 @@ class Product(Event):
         return "Product({})".format(self.name)
 
     def to_dot(self):
-        pass
+        color="green" if self.is_set() else "yellow"
+        return f"{self.name} [style=filled color={color}]"
