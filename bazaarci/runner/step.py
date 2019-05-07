@@ -46,7 +46,13 @@ class Step(Node):
         return "Step({})".format(self.name)
 
     def to_dot(self):
-        this_node = f"\"{self.name}\" [shape=box];"
+        if self.thread is None:
+            color = "gray"
+        elif self.thread.is_alive():
+            color = "green"
+        else:
+            color = "blue"
+        this_node = f"\"{self.name}\" [shape=box style=filled color={color}];"
         all_consumed = (f"\"{cons.name}\" -> \"{self.name}\";" for cons in self.consumes())
         all_produced = (f"\"{self.name}\" -> \"{prod.name}\";" for prod in self.produces())
         return this_node + "\n" + "\n".join(all_consumed) + "\n" + "\n".join(all_produced) + "\n" + "\n".join((p.to_dot() for p in self.produces()))+ "\n" + "\n".join((c.to_dot() for c in self.consumes()))
