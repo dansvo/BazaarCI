@@ -88,6 +88,14 @@ def skip_if_redundant(func):
             func(self)
     return wrapped
 
+def cache_produces(func, path):
+    """ Caches all produces at path with hash of all consumes as key
+    """
+    @wraps(func)
+    def wrapped(self):
+        key = hash(hash(c) for c in self.consumes())
+    return wrapped
+
 
 # By default, Step should wait for producers
 set_run_behavior(Step, wait_for_producers)
